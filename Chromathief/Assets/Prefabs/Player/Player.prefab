@@ -162,6 +162,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd8aa292916cf454ab418d89a94f33b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colorableObjects:
+  - {fileID: 3448873961301973139}
+  red: 0
+  blue: 0
+  yellow: 0
+  update: 0
 --- !u!54 &3448873962063192520
 Rigidbody:
   m_ObjectHideFlags: 0

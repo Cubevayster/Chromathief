@@ -28,7 +28,10 @@ public class ColorManager : MonoBehaviour
         /*if(red && blue && yellow) {*/ return GameColor.Black;
     }
 
-    public static ColorManager instance;
+    public static ColorManager instance; private void Awake()
+    {
+        instance = this;
+    }
     public enum GameColor
     {
         White, Red, Blue, Yellow, Purple, Orange, Green, Black

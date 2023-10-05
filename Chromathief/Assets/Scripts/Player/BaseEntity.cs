@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class BaseEntity : MonoBehaviour
 {
-    
+    protected virtual void Start() { }
 }
