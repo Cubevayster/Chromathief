@@ -13,6 +13,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] float runSpeed;
     [SerializeField] float runAcceleration;
     [SerializeField] AnimationCurve runAccelerationCurve;
+    [SerializeField] float rotationSpeed;
 
     Vector2 currentSpeed;
     Vector2 WalkSpeedRatio { get { return new Vector2(Mathf.Abs(currentSpeed.x) / walkSpeed, Mathf.Abs(currentSpeed.y )/ walkSpeed); } }
@@ -45,12 +46,20 @@ public class PlayerControler : MonoBehaviour
     {
         Move();
 
+        Look();
+
         WalkInput();
+    }
+
+    void Look()
+    {
+        Quaternion rot = Quaternion.LookRotation(new Vector3(currentSpeed.x, 0, currentSpeed.y), transform.up); 
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, Time.deltaTime * rotationSpeed);
     }
 
     void Move()
     {
-        transform.Translate(currentSpeed.x,0,currentSpeed.y);
+        transform.Translate(currentSpeed.x,0,currentSpeed.y,Space.World);
     }
 
     void WalkInput()
