@@ -32,9 +32,9 @@ public class ColorManager : MonoBehaviour
     {
         instance = this;
     }
+
     public enum GameColor
     {
         White, Red, Blue, Yellow, Purple, Orange, Green, Black
     }
-
 }

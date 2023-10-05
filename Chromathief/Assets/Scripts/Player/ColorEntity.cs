@@ -27,9 +27,9 @@ public class ColorEntity : BaseEntity
         if (update) { UpdateColor(); update = false; }
     }
 
-    public void ToggleRed() { ChangeRed(!red); } public void ChangeRed(bool r) { red = r; UpdateColor(); }
-    public void ToggleBlue() { ChangeBlue(!blue); } public void ChangeBlue(bool b) { blue = b; UpdateColor(); }
-    public void ToggleYellow() { ChangeYellow(!yellow); } public void ChangeYellow(bool Y) { yellow = Y; UpdateColor(); }
+    public void ToggleRed() { ChangeRed(!red); } public void ChangeRed(bool r) { red = r; UpdateColor(); HUD.Instance?.TogglePrimaryColor(ColorManager.GameColor.Red, red); }
+    public void ToggleBlue() { ChangeBlue(!blue); } public void ChangeBlue(bool b) { blue = b; UpdateColor(); HUD.Instance?.TogglePrimaryColor(ColorManager.GameColor.Blue, blue); }
+    public void ToggleYellow() { ChangeYellow(!yellow); } public void ChangeYellow(bool Y) { yellow = Y; UpdateColor(); HUD.Instance?.TogglePrimaryColor(ColorManager.GameColor.Yellow, yellow); }
 
     void UpdateColor()
     {
@@ -37,6 +37,7 @@ public class ColorEntity : BaseEntity
         {
             ApplyColor(g);
         }
+        HUD.Instance?.SetCurrentColor(Color);
     }
     void ApplyColor(GameObject g)
     {
@@ -44,6 +45,7 @@ public class ColorEntity : BaseEntity
         {
             meshRenderer.sharedMaterial.color = MatColor;
         }
+
     }
 
     void SetupMaterials()
