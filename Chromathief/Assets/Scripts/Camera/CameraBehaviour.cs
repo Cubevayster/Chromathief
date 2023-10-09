@@ -16,7 +16,7 @@ public class CameraBehaviour : MonoBehaviour
         basePosition = this.transform.position;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Vector2 mousePos = Input.mousePosition;
         mousePos.x = (mousePos.x - (Screen.width / 2.0f)) / (Screen.width / 2.0f);
@@ -29,7 +29,7 @@ public class CameraBehaviour : MonoBehaviour
         {
             float c = Mathf.Clamp( (dist - distanceRange.x) / (distanceRange.y - distanceRange.x), 0,1);
             c = catchCurve.Evaluate(c);
-           transform.position = Vector3.MoveTowards(transform.position, pos, Time.deltaTime * catchSpeed * c);
+           transform.position = Vector3.MoveTowards(transform.position, pos, Time.fixedDeltaTime * catchSpeed * c);
         }
     }
 }

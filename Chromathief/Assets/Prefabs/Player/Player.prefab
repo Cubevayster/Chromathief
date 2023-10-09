@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556e6402ef58e0a4da510dfbcab2ffe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 0.2
+  walkSpeed: 0.15
   walkAcceleration: 0.01
   walkBrakeAcceleration: 0.3
   walkBrakeAccelerationCurve:

@@ -64,11 +64,11 @@ public class PlayerControler : MonoBehaviour
     void WalkInput()
     {
         Vector2 dir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        dir.Normalize();
 
         Vector2 wa = WalkAcceleration(dir);
 
-        Vector2 dirn = dir.normalized;
-        currentSpeed += new Vector2(dirn.x * wa.x, dirn.y * wa.y);
+        currentSpeed += new Vector2(dir.x * wa.x, dir.y * wa.y);
 
         if (Mathf.Abs(dir.x) < 0.1f) { currentSpeed.x /= 1 + (walkBrakeAcceleration * walkBrakeAccelerationCurve.Evaluate(WalkSpeedRatio.x)); }
         if (Mathf.Abs(dir.y) < 0.1f) { currentSpeed.y /= 1 + (walkBrakeAcceleration * walkBrakeAccelerationCurve.Evaluate(WalkSpeedRatio.y)); }
