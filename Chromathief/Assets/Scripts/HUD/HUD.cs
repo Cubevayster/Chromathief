@@ -47,6 +47,13 @@ public class HUD : Singleton<HUD>
         mScoreTimeTxt.text = _scoreTime;
     }
 
+    public void SetPrimaryColors(bool _red = false, bool _blue = false, bool _yellow = false)
+    {
+        redIsToggled = _red; UpdateUIPrimaryColors(red, redIsToggled);
+        blueIsToggled = _blue; UpdateUIPrimaryColors(blue, blueIsToggled);
+        yellowIsToggled = _yellow; UpdateUIPrimaryColors(yellow, yellowIsToggled);
+    }
+
     public void TogglePrimaryColor(GameColor _colorToToggle, bool _isToggled)
     {
         switch (_colorToToggle)

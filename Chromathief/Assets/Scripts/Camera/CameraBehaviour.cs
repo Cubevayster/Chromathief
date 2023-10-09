@@ -5,6 +5,7 @@ using UnityEngine;
 public class CameraBehaviour : MonoBehaviour
 {
     [SerializeField] private Vector2 limitsXY = new Vector2(1,1);
+    [SerializeField] AnimationCurve moveCurve;
     [SerializeField] Transform target;
     [SerializeField] float catchSpeed;
     [SerializeField] AnimationCurve catchCurve;
@@ -21,6 +22,8 @@ public class CameraBehaviour : MonoBehaviour
         Vector2 mousePos = Input.mousePosition;
         mousePos.x = (mousePos.x - (Screen.width / 2.0f)) / (Screen.width / 2.0f);
         mousePos.y = (mousePos.y - (Screen.height / 2.0f)) / (Screen.height / 2.0f);
+        mousePos.x = moveCurve.Evaluate(Mathf.Abs(mousePos.x)) * Mathf.Sign(mousePos.x);
+        mousePos.y = moveCurve.Evaluate(Mathf.Abs(mousePos.y)) * Mathf.Sign(mousePos.y);
 
         Vector3 pos = target.position + basePosition + new Vector3(mousePos.x * limitsXY.x, 0, mousePos.y * limitsXY.y);
 
