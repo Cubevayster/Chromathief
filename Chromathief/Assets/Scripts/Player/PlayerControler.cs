@@ -7,6 +7,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] float walkSpeed;
     [SerializeField] float walkAcceleration;
     [SerializeField] float walkBrakeAcceleration;
+    [SerializeField] AnimationCurve walkBrakeAccelerationCurve;
     [SerializeField] AnimationCurve walkAccelerationCurve;
     [SerializeField] float reverseWalkAcceleration;
     [SerializeField] AnimationCurve reverseWalkAccelerationCurve;
@@ -45,15 +46,13 @@ public class PlayerControler : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-
-        Look();
-
+  
         WalkInput();
     }
 
-    void Look()
+    void Look(Vector2 direction)
     {
-        Quaternion rot = Quaternion.LookRotation(new Vector3(currentSpeed.x, 0, currentSpeed.y), transform.up); 
+        Quaternion rot = Quaternion.LookRotation(new Vector3(direction.x,0, direction.y), transform.up); //new Vector3(currentSpeed.x, 0, currentSpeed.y)
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, Time.deltaTime * rotationSpeed);
     }
 
@@ -66,12 +65,17 @@ public class PlayerControler : MonoBehaviour
     {
         Vector2 dir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-
         Vector2 wa = WalkAcceleration(dir);
 
-        currentSpeed += new Vector2(dir.x * wa.x, dir.y * wa.y);
+        Vector2 dirn = dir.normalized;
+        currentSpeed += new Vector2(dirn.x * wa.x, dirn.y * wa.y);
 
-        if (dir.x < 0.1f) { currentSpeed.x /= walkBrakeAcceleration; }
-        if (dir.y < 0.1f) { currentSpeed.y /= walkBrakeAcceleration; }
+        if (Mathf.Abs(dir.x) < 0.1f) { currentSpeed.x /= 1 + (walkBrakeAcceleration * walkBrakeAccelerationCurve.Evaluate(WalkSpeedRatio.x)); }
+        if (Mathf.Abs(dir.y) < 0.1f) { currentSpeed.y /= 1 + (walkBrakeAcceleration * walkBrakeAccelerationCurve.Evaluate(WalkSpeedRatio.y)); }
+
+        if(Mathf.Abs(dir.x) > 0.1f || Mathf.Abs(dir.y) > 0.1f)
+        {
+            Look(dir);
+        }
     }
 }

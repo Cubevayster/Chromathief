@@ -23,15 +23,13 @@ public class HUD : Singleton<HUD>
     [SerializeField] TextMeshProUGUI mLevelTxt = null;
     [SerializeField] TextMeshProUGUI mScoreTimeTxt = null;
 
-    [SerializeField] RawImage mCurrentColor = null;
-    [SerializeField] RawImage mRed = null;
-    [SerializeField] bool mRedIsToggled = false;
-    [SerializeField] RawImage mBlue = null;
-    [SerializeField] bool mBlueIsToggled = false;
-    [SerializeField] RawImage mYellow = null;
-    [SerializeField] bool mYellowIsToggled = false;
-    [SerializeField, Range(0,1)] float mOpacityToggledOff = 0.2f;
-    [SerializeField, Range(0,1)] float mOpacityToggledOn = 1;
+    [SerializeField] Image currentColor;
+    [SerializeField] Image red;
+    [SerializeField] bool redIsToggled = false;
+    [SerializeField] Image blue = null;
+    [SerializeField] bool blueIsToggled = false;
+    [SerializeField] Image yellow = null;
+    [SerializeField] bool yellowIsToggled = false;
 
     [SerializeField] RawImage mTriangleWarning = null;
     [SerializeField] RawImage mExclamationWarning = null;
@@ -54,34 +52,32 @@ public class HUD : Singleton<HUD>
         switch (_colorToToggle)
         {
             case GameColor.Red:
-                mRedIsToggled = _isToggled;
-                UpdateUIPrimaryColors(mRed, mRedIsToggled);
+                redIsToggled = _isToggled;
+                UpdateUIPrimaryColors(red, redIsToggled);
                 break;
             case GameColor.Blue:
-                mBlueIsToggled = _isToggled;
-                UpdateUIPrimaryColors(mBlue, mBlueIsToggled);
+                blueIsToggled = _isToggled;
+                UpdateUIPrimaryColors(blue, blueIsToggled);
                 break;
             case GameColor.Yellow:
-                mYellowIsToggled = _isToggled;
-                UpdateUIPrimaryColors(mYellow, mYellowIsToggled);
+                yellowIsToggled = _isToggled;
+                UpdateUIPrimaryColors(yellow, yellowIsToggled);
                 break;
             default:
                 break;
         }
     }
 
-    public void UpdateUIPrimaryColors(RawImage _primaryColor, bool _toggled)
+    public void UpdateUIPrimaryColors(Image _primaryColor, bool _toggled)
     {
         if (!_primaryColor) return;
-        Color _newColor = _primaryColor.color;
-        _newColor.a = _toggled ? mOpacityToggledOn : mOpacityToggledOff;
-        _primaryColor.color = _newColor;
+        _primaryColor.enabled = _toggled;
     }
 
     public void SetCurrentColor(GameColor _color)
     {
-        if (!mCurrentColor) return;
-        mCurrentColor.color = ColorManager.GetColor(_color);
+        if (!currentColor) return;
+        currentColor.color = ColorManager.GetColor(_color);
     }
 
     public void SetAlert(AlertTypes _alert)
@@ -98,8 +94,8 @@ public class HUD : Singleton<HUD>
 
     private void Start()
     {
-        UpdateUIPrimaryColors(mRed, mRedIsToggled);
-        UpdateUIPrimaryColors(mBlue, mBlueIsToggled);
-        UpdateUIPrimaryColors(mYellow, mYellowIsToggled);
+        UpdateUIPrimaryColors(red, redIsToggled);
+        UpdateUIPrimaryColors(blue, blueIsToggled);
+        UpdateUIPrimaryColors(yellow, yellowIsToggled);
     }
 }
