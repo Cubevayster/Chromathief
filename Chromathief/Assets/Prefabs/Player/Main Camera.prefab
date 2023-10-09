@@ -151,6 +151,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   limitsXY: {x: 3, y: 3}
+  moveCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.010649744
+      outSlope: 0.010649744
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.057574917
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2.868345
+      outSlope: 2.868345
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.028856814
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   target: {fileID: 0}
   catchSpeed: 10
   catchCurve:
