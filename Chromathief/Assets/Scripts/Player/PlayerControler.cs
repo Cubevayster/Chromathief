@@ -22,9 +22,9 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] AnimationCurve reverseRunAccelerationCurve;
 
     [Space(5)]
-
     [SerializeField] float rotationSpeed;
-
+    [SerializeField] Animator playerAnimator;
+    bool isWalking; public bool IsWalking { get { return isWalking; } }
     bool isRunning; public bool IsRunning { get { return isRunning; } }
     Vector2 runDirection;
 
@@ -70,6 +70,7 @@ public class PlayerControler : MonoBehaviour
         RunInput();
         WalkInput();
         ApplySpeed();
+        SetAnimatorParameters();
     }
 
     void Look(Vector2 direction)
@@ -106,6 +107,8 @@ public class PlayerControler : MonoBehaviour
         if (Mathf.Abs(movementInput.x) < 0.1f) { currentSpeed.x /= 1 + (walkBrakeAcceleration * walkBrakeAccelerationCurve.Evaluate(WalkSpeedRatio.x)); }
         if (Mathf.Abs(movementInput.y) < 0.1f) { currentSpeed.y /= 1 + (walkBrakeAcceleration * walkBrakeAccelerationCurve.Evaluate(WalkSpeedRatio.y)); }
 
+        isWalking = movementInput.magnitude > 0.1f;
+
         if (Mathf.Abs(movementInput.x) > 0.1f || Mathf.Abs(movementInput.y) > 0.1f)
         {
             Look(movementInput);
@@ -131,5 +134,11 @@ public class PlayerControler : MonoBehaviour
     {
         movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         movementInput.Normalize();
+    }
+
+    void SetAnimatorParameters()
+    {
+        playerAnimator.SetBool("isWalking", isWalking);
+        playerAnimator.SetBool("isRunning", isRunning);
     }
 }
