@@ -1,0 +1,50 @@
+name: Unity Build and Artifact Upload
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Unity
+      uses: game-ci/setup-unity@v1
+      with:
+        unityVersion: 2022.3.9
+        unityChannel: 'unity'
+      
+    - name: Build for Windows
+      run: unity -quit -batchmode -projectPath ./Chromatief -executeMethod BuildScript.BuildWindows -logFile build.log
+
+    - name: Build for macOS
+      run: unity -quit -batchmode -projectPath ./Chromatief -executeMethod BuildScript.BuildMac -logFile build.log
+
+    - name: Build for Linux
+      run: unity -quit -batchmode -projectPath ./Chromatief -executeMethod BuildScript.BuildLinux -logFile build.log
+
+    - name: Archive and upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Chromatief-${{ github.ref_name }}-Windows
+        path: ./Chromatief/Builds/Windows
+      if: contains(run.outputs.UnityActionStatus, 'success')
+
+    - name: Archive and upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Chromatief-${{ github.ref_name }}-macOS
+        path: ./Chromatief/Builds/macOS
+      if: contains(run.outputs.UnityActionStatus, 'success')
+
+    - name: Archive and upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Chromatief-${{ github.ref_name }}-Linux
+        path: ./Chromatief/Builds/Linux
+      if: contains(run.outputs.UnityActionStatus, 'success')
