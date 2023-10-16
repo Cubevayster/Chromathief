@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : ColorEntity
+public class Player : PlayingEntity
 {
     public override void Clear() { base.Clear(); HUD.Instance?.SetPrimaryColors(red, blue, yellow);  }
     public override void All() { base.All(); HUD.Instance?.SetPrimaryColors(red, blue, yellow); }

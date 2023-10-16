@@ -9,7 +9,6 @@ public class Surveillor : MonoBehaviour
 
     [Space(5)]
 
-    [SerializeField] LineRenderer line;
     [SerializeField] Transform forwardRef;
     [SerializeField] LayerMask layer;
 
@@ -17,16 +16,45 @@ public class Surveillor : MonoBehaviour
 
     [SerializeField] float detectionUpdateRate;
     [SerializeField] int detectionRayCount;
-    [SerializeField] float horizontalRayFrequence;
+    [SerializeField] float detectionRayFrequence;
 
-    List<BaseEntity> detectedEntities;
+    [Space(5)]
+    [SerializeField] LineRenderer[] lines; List<Ray> lineRays;
+    [SerializeField] float laserRotationSpeed;
+
+    [SerializeField] LineRenderer focusLine;
+
+    [SerializeField] int lineRayCount;
+    [SerializeField] float lineRayUpdateRate;
+    [SerializeField] float lineRayFrequence;
+    [SerializeField] float lineRaySpeed;
+    [SerializeField] float lineRayMaxDistance;
+
+    List<PlayingEntity> detectedEntities;
+    float laserCurrentAngle;
 
     private void Start()
     {
-        detectedEntities = new List<BaseEntity>();
+        detectedEntities = new List<PlayingEntity>();
+        lineRays = new List<Ray>();
         StartCoroutine(DetectionCoroutine());
+        //StartCoroutine(DrawLines());
     }
 
+    private void Update()
+    {
+        DrawZone();
+        laserCurrentAngle += Time.deltaTime * laserRotationSpeed;
+
+        if(detectedEntities.Count > 0) 
+        {
+            focusLine.gameObject.SetActive(true);
+            DrawFocusLine(detectedEntities[0].transform);
+        }
+        else { focusLine.gameObject.SetActive(false); }
+    }
+
+    #region Detection
     IEnumerator DetectionCoroutine()
     {
         while(true)
@@ -50,18 +78,25 @@ public class Surveillor : MonoBehaviour
         detectedEntities.Clear();
     }
 
-    BaseEntity CastRay(float r)
+    Ray BuildRay(float r,float freq)
     {
         float w = Mathf.Sin(r * Mathf.PI) * angles.x;
-        float x = w * Mathf.Cos(r * 2 * Mathf.PI * horizontalRayFrequence);
+        float x = w * Mathf.Cos(r * 2 * Mathf.PI * freq);
         float y = Mathf.Cos(r * Mathf.PI) * angles.y;
 
         Vector3 dir = forwardRef.forward + (forwardRef.right * x) + (forwardRef.up * y);
 
+        return new Ray(forwardRef.position, dir);
+    }
+
+    PlayingEntity CastRay(float r)
+    {
+        Ray ray = BuildRay(r, detectionRayFrequence);
+
         //Debug.DrawRay(forwardRef.position, dir * range, Color.red, 0.2f);
-        if (Physics.Raycast(forwardRef.position, dir, out RaycastHit hit, range, layer))
+        if (Physics.Raycast(ray, out RaycastHit hit, range, layer))
         {
-            if(hit.collider.TryGetComponent(out BaseEntity e))
+            if(hit.collider.TryGetComponent(out PlayingEntity e))
             {
                 return e;
             }
@@ -70,18 +105,97 @@ public class Surveillor : MonoBehaviour
         return null;
     }
 
-    List<BaseEntity> DetectEntities()
+    List<PlayingEntity> DetectEntities()
     {
-        List<BaseEntity> entities = new List<BaseEntity>();
+        List<PlayingEntity> entities = new List<PlayingEntity>();
 
         for(int i = 0; i < detectionRayCount; i++)
         {
-            BaseEntity e = CastRay(i / (float)detectionRayCount);
+            PlayingEntity e = CastRay(i / (float)detectionRayCount);
             if (e != null) { entities.Add(e); }
         }
 
         return entities;
     }
+    #endregion
+
+    #region Display
+    void AppendLine(Ray ray)
+    {
+        lineRays.Add(ray);
+        if(lineRays.Count > lines.Length) { lineRays.RemoveAt(0); }
+    }
+
+    void UpdateLines()
+    {
+        for (int i = 0; i < lines.Length; i++)
+        {
+            if (i >= lineRays.Count) { break; }
+
+            Vector3[] arr = new Vector3[2] { lineRays[i].origin, lineRays[i].origin + (lineRays[i].direction * range) };
+
+            for (int l = 0; l < 2; l++)
+            {
+                if ((arr[l] - lines[i].GetPosition(l)).magnitude > lineRayMaxDistance)
+                {
+                    lines[i].SetPosition(l, arr[l]);
+                }
+                else
+                {
+                    Vector3 p = Vector3.MoveTowards(lines[i].GetPosition(l), arr[l], Time.deltaTime * lineRaySpeed);
+                    lines[i].SetPosition(l, p);
+                }
+            }
+
+        }
+    }
+
+    IEnumerator DrawLines()
+    {
+        while(true)
+        {
+            for(int i = 0; i < lineRayCount; i++)
+            {
+                Ray ray = BuildRay(i / (float)lineRayCount,lineRayFrequence);
+                AppendLine(ray);
+                UpdateLines();
+                yield return new WaitForSeconds(1f / lineRayUpdateRate);
+            }
+            
+        }
+    }
+
+    Vector3 GetRayVect(float offset)
+    {
+        return new Vector3(
+            Mathf.Cos(laserCurrentAngle + offset) * range * angles.x, 
+            Mathf.Sin(laserCurrentAngle + offset) * range * angles.y, 
+            range);
+    }
+
+    void DrawZone()
+    {
+        Vector3 bot = GetRayVect(0);
+        Vector3 right = GetRayVect(Mathf.PI * .5f);
+        Vector3 top = GetRayVect(Mathf.PI);
+        Vector3 left = GetRayVect(Mathf.PI * 1.5f);
+
+        lines[0].SetPositions(new Vector3[2] { Vector3.zero, Vector3.zero + bot});
+        lines[1].SetPositions(new Vector3[2] { Vector3.zero, Vector3.zero + top });
+        lines[2].SetPositions(new Vector3[2] { Vector3.zero, Vector3.zero + right });
+        lines[3].SetPositions(new Vector3[2] { Vector3.zero, Vector3.zero + left });
+
+        
+        
+    }
+
+    void DrawFocusLine(Transform target)
+    {
+        Vector3 dir = (target.position - forwardRef.position);
+        focusLine.SetPositions(new Vector3[2] { forwardRef.position, forwardRef.position + dir });
+    }
+
+    #endregion
 
     private void OnDrawGizmos()
     {

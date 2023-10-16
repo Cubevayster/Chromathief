@@ -14,7 +14,8 @@ public class CameraBehaviour : MonoBehaviour
 
     private void Start()
     {
-        basePosition = this.transform.position;
+        basePosition = this.transform.localPosition; 
+        transform.parent = null;
     }
 
     private void FixedUpdate()
