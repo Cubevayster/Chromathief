@@ -22,6 +22,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] AnimationCurve reverseRunAccelerationCurve;
 
     [Space(5)]
+    [SerializeField] float speedRatio = 50;
     [SerializeField] float rotationSpeed;
     [SerializeField] Animator playerAnimator;
     bool isWalking; public bool IsWalking { get { return isWalking; } }
@@ -117,7 +118,9 @@ public class PlayerControler : MonoBehaviour
 
     void ApplySpeed()
     {
-        transform.Translate(currentSpeed.x, 0, currentSpeed.y, Space.World);
+        //transform.Translate(currentSpeed.x, 0, currentSpeed.y, Space.World);
+        //Rigidbody.MovePosition(Rigidbody.position + new Vector3(currentSpeed.x, 0, currentSpeed.y));
+        Rigidbody.velocity = new Vector3(currentSpeed.x, 0, currentSpeed.y) * speedRatio;
     }
 
     void RunInput()
@@ -141,4 +144,6 @@ public class PlayerControler : MonoBehaviour
         playerAnimator.SetBool("isWalking", isWalking);
         playerAnimator.SetBool("isRunning", isRunning);
     }
+
+    public Rigidbody Rigidbody { get { return GetComponent<Rigidbody>(); } }
 }

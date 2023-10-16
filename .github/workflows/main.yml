@@ -1,0 +1,58 @@
+name: Unity Build and Artifact Upload
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Unity
+
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl
+        curl -sL https://public-cdn.cloud.unity3d.com/hub/prod/UnityHub.AppImage --output UnityHub.AppImage
+        chmod +x UnityHub.AppImage
+        ./UnityHub.AppImage -- -q
+        unity-hub install --version 2022.9.3
+      env:
+        UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+    - name: Build for Windows
+      run: unity-hub edit -projectPath ../../Chromatief -exportPackage ../../Chromatief/Builds/Windows/Chromatief-${{ github.ref_name }}-Windows.unitypackage -buildTarget StandaloneWindows -quit -batchmode -nographics
+
+    - name: Build for macOS
+      run: unity-hub edit -projectPath ../../Chromatief -exportPackage ../../Chromatief/Builds/macOS/Chromatief-${{ github.ref_name }}-macOS.unitypackage -buildTarget StandaloneOSX -quit -batchmode -nographics
+
+    - name: Build for Linux
+      run: unity-hub edit -projectPath ../../Chromatief -exportPackage ../../Chromatief/Builds/Linux/Chromatief-${{ github.ref_name }}-Linux.unitypackage -buildTarget StandaloneLinux -quit -batchmode -nographics
+
+
+    - name: Archive and upload artifacts - Windows
+      if: success()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Chromatief-${{ github.ref_name }}-Windows
+        path: ../../Chromatief/Builds/Windows
+
+
+    - name: Archive and upload artifacts - macOS
+      if: success()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Chromatief-${{ github.ref_name }}-macOS
+        path: ../../Chromatief/Builds/macOS
+
+    - name: Archive and upload artifacts - Linux
+      if: success()
+      uses: actions/upload-artifact@v2
+      with:
+        name: Chromatief-${{ github.ref_name }}-Linux
+        path: ../../Chromatief/Builds/Linux

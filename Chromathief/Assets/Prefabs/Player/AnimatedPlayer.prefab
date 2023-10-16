@@ -5576,7 +5576,7 @@ GameObject:
   - component: {fileID: 7571095523876764785}
   m_Layer: 0
   m_Name: AnimatedPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5630,6 +5630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd8aa292916cf454ab418d89a94f33b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detectedEffect: {fileID: 0}
   colorableObjects:
   - {fileID: 480720678708605569}
   - {fileID: 2128207490639761037}
@@ -5777,6 +5778,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  speedRatio: 50
   rotationSpeed: 750
   playerAnimator: {fileID: 6635325227025748993}
 --- !u!54 &2458678600356320154
@@ -5804,7 +5806,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!136 &7571095523876764785
 CapsuleCollider:
