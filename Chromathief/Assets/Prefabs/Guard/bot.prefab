@@ -265,6 +265,7 @@ GameObject:
   - component: {fileID: 6181469559556838097}
   - component: {fileID: -9034996161050370487}
   - component: {fileID: 3279237781101917575}
+  - component: {fileID: 4931440410688769822}
   m_Layer: 0
   m_Name: bot
   m_TagString: Untagged
@@ -319,7 +320,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2156061602402988353}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.25
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -346,9 +347,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSightDistance: 10
   walkSpeed: 2
-  runSpeed: 5
+  runSpeed: 4
   minIdleTime: 1
-  maxIdleTime: 5
+  maxIdleTime: 2
+  minWalkTime: 4
+  maxWalkTime: 10
+--- !u!65 &4931440410688769822
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2156061602402988353}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 1, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2336734482314688118
 GameObject:
   m_ObjectHideFlags: 0
