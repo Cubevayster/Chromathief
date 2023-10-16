@@ -45,10 +45,13 @@ public class ColorEntity : BaseEntity
 
     void ApplyColor(GameObject g)
     {
-        if(g.TryGetComponent(out MeshRenderer meshRenderer))
+        if (g.TryGetComponent(out MeshRenderer meshRenderer))
         {
             meshRenderer.sharedMaterial.color = MatColor;
-            meshRenderer.sharedMaterial.SetColor("_BaseColor", MatColor);
+        }
+        else if(g.TryGetComponent(out SkinnedMeshRenderer smeshRenderer))
+        {
+            smeshRenderer.sharedMaterial.color = MatColor;
         }
 
     }
@@ -61,6 +64,11 @@ public class ColorEntity : BaseEntity
             {
                 meshRenderer.sharedMaterial = new Material(meshRenderer.sharedMaterial);
             }
+            else if (g.TryGetComponent(out SkinnedMeshRenderer smeshRenderer))
+            {
+                smeshRenderer.sharedMaterial = new Material(smeshRenderer.sharedMaterial);
+            }
+            else { Debug.Log("No mesh renderer found"); }
         }
         if (mainEffect != null)
         {
