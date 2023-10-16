@@ -29,7 +29,7 @@ public class PlayerControler : MonoBehaviour
     Vector2 runDirection;
 
     Vector2 movementInput;
-    Vector2 currentSpeed;
+    Vector2 currentSpeed; public Vector3 CurrentSpeed { get { return new Vector3(currentSpeed.x, 0, currentSpeed.y);} }
     Vector2 WalkSpeedRatio { get { return new Vector2(Mathf.Abs(currentSpeed.x) / walkSpeed, Mathf.Abs(currentSpeed.y )/ walkSpeed); } }
     Vector2 RunSpeedRatio { get { return new Vector2(Mathf.Abs(currentSpeed.x) / runSpeed, Mathf.Abs(currentSpeed.y) / runSpeed); } }
 
