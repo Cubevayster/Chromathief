@@ -38,18 +38,18 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Chromatief-${{ github.ref_name }}-Windows
-        path: ./Chromatief/Builds/Windows
+        path: ../../Chromatief/Builds/Windows
 
     - name: Archive and upload artifacts - macOS
       if: success()
       uses: actions/upload-artifact@v2
       with:
         name: Chromatief-${{ github.ref_name }}-macOS
-        path: ./Chromatief/Builds/macOS
+        path: ../../Chromatief/Builds/macOS
 
     - name: Archive and upload artifacts - Linux
       if: success()
       uses: actions/upload-artifact@v2
       with:
         name: Chromatief-${{ github.ref_name }}-Linux
-        path: ./Chromatief/Builds/Linux
+        path: ../../Chromatief/Builds/Linux
