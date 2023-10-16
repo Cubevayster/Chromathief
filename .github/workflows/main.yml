@@ -20,13 +20,13 @@ jobs:
         unityChannel: 'unity'
       
     - name: Build for Windows
-      run: unity -quit -batchmode -projectPath ./Chromatief -executeMethod BuildScript.BuildWindows -logFile build.log
+      run: unity -quit -batchmode -projectPath ../Chromatief -executeMethod BuildScript.BuildWindows -logFile build.log
 
     - name: Build for macOS
-      run: unity -quit -batchmode -projectPath ./Chromatief -executeMethod BuildScript.BuildMac -logFile build.log
+      run: unity -quit -batchmode -projectPath ../Chromatief -executeMethod BuildScript.BuildMac -logFile build.log
 
     - name: Build for Linux
-      run: unity -quit -batchmode -projectPath ./Chromatief -executeMethod BuildScript.BuildLinux -logFile build.log
+      run: unity -quit -batchmode -projectPath ../Chromatief -executeMethod BuildScript.BuildLinux -logFile build.log
 
     - name: Archive and upload artifacts
       uses: actions/upload-artifact@v2
