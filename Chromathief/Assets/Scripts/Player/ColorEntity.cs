@@ -48,6 +48,7 @@ public class ColorEntity : BaseEntity
         if(g.TryGetComponent(out MeshRenderer meshRenderer))
         {
             meshRenderer.sharedMaterial.color = MatColor;
+            meshRenderer.sharedMaterial.SetColor("_BaseColor", MatColor);
         }
 
     }
