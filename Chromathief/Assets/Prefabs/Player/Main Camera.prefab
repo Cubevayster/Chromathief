@@ -176,7 +176,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   target: {fileID: 0}
-  catchSpeed: 10
+  catchSpeed: 20
   catchCurve:
     serializedVersion: 2
     m_Curve:
@@ -202,3 +202,6 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   distanceRange: {x: 0, y: 3}
+  zoomRange: {x: 0, y: 0}
+  zoomSpeeds: {x: 0, y: 0}
+  camera: {fileID: 6454823851985472045}

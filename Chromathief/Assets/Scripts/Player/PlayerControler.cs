@@ -34,6 +34,8 @@ public class PlayerControler : MonoBehaviour
     Vector2 WalkSpeedRatio { get { return new Vector2(Mathf.Abs(currentSpeed.x) / walkSpeed, Mathf.Abs(currentSpeed.y )/ walkSpeed); } }
     Vector2 RunSpeedRatio { get { return new Vector2(Mathf.Abs(currentSpeed.x) / runSpeed, Mathf.Abs(currentSpeed.y) / runSpeed); } }
 
+    float TimeStanding = 0f;
+
     Vector2 NormalizedWalkSpeedRatio { 
         get {
             return WalkSpeedRatio;
@@ -66,6 +68,15 @@ public class PlayerControler : MonoBehaviour
         else
         {
             Walk();
+        }
+
+        if(!isWalking && !isRunning)
+        {
+            TimeStanding += Time.deltaTime;
+        }
+        else
+        {
+            TimeStanding = 0f;
         }
 
         RunInput();
@@ -143,6 +154,7 @@ public class PlayerControler : MonoBehaviour
     {
         playerAnimator.SetBool("isWalking", isWalking);
         playerAnimator.SetBool("isRunning", isRunning);
+        playerAnimator.SetFloat("TimeStanding", TimeStanding);
     }
 
     public Rigidbody Rigidbody { get { return GetComponent<Rigidbody>(); } }
