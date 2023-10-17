@@ -75,4 +75,11 @@ public class ColorEntity : BaseEntity
             mainEffect.GetComponent<ParticleSystemRenderer>().sharedMaterial = new Material(mainEffect.GetComponent<ParticleSystemRenderer>().sharedMaterial);
         }
     }
+
+    private void OnDrawGizmos()
+    {
+
+        Gizmos.color = MatColor;
+        Gizmos.DrawCube(transform.position, Quaternion.Euler(transform.rotation.eulerAngles) * (transform.lossyScale * 1.05f));
+    }
 }
