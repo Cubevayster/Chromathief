@@ -14,6 +14,7 @@ public class BreakableWall : MonoBehaviour
                 if (pc.IsRunning)
                 {
                     Instantiate(destroyParticle.gameObject, transform.position, transform.rotation);
+                    EntityManager.EntityManagerInstance.NotifyGuardOfNoise(this.transform.position);
                     Destroy(this.gameObject);
                 }
             }
