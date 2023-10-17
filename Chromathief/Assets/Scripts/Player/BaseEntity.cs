@@ -6,13 +6,17 @@ public class BaseEntity : MonoBehaviour
 {
     [SerializeField] GameObject detectedEffect;
 
-    bool detected; public void SetDetected(bool b) { detected = b; }
+    protected List<GameObject> detectedBy = new List<GameObject>();
+    public void AddDetected(GameObject g) { detectedBy.Add(g); }
+    public void RemoveDetected(GameObject g) { detectedBy.Remove(g); }
+    public bool Detected { get { return detectedBy.Count > 0; } }
+    public bool DetectedBy(GameObject g) { return detectedBy.Contains(g); }
 
     protected virtual void Update()
     {
         if (detectedEffect != null)
         {
-            detectedEffect.SetActive(detected);
+            detectedEffect.SetActive(Detected);
         }
     }
 

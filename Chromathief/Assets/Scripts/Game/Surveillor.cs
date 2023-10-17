@@ -31,6 +31,7 @@ public class Surveillor : MonoBehaviour
     [SerializeField] float lineRayMaxDistance;
 
     List<PlayingEntity> detectedEntities;
+    ColorEntity detectedWall;
     float laserCurrentAngle;
 
     private void Start()
@@ -49,7 +50,13 @@ public class Surveillor : MonoBehaviour
         if(detectedEntities.Count > 0) 
         {
             focusLine.gameObject.SetActive(true);
-            DrawFocusLine(detectedEntities[0].transform);
+            foreach (PlayingEntity pe in detectedEntities)
+            {
+                if (pe.DetectedBy(gameObject))
+                {
+                    DrawFocusLine(pe.transform); break;
+                }
+            }
         }
         else { focusLine.gameObject.SetActive(false); }
     }
@@ -61,7 +68,7 @@ public class Surveillor : MonoBehaviour
         {
             ResetEntities();
             detectedEntities = DetectEntities();
-            foreach (BaseEntity e in detectedEntities) { e.SetDetected(true); }
+            ProcessDetectedEntities();
             yield return new WaitForSeconds(1f / detectionUpdateRate);
 
             /*for (int i = 0; i < detectionRayCount; i++)
@@ -74,7 +81,7 @@ public class Surveillor : MonoBehaviour
 
     void ResetEntities()
     {
-        foreach(BaseEntity e in detectedEntities) { e.SetDetected(false); }
+        foreach(BaseEntity e in detectedEntities) { e.RemoveDetected(gameObject); }
         detectedEntities.Clear();
     }
 
@@ -89,14 +96,14 @@ public class Surveillor : MonoBehaviour
         return new Ray(forwardRef.position, dir);
     }
 
-    PlayingEntity CastRay(float r)
+    ColorEntity CastRay(float r)
     {
         Ray ray = BuildRay(r, detectionRayFrequence);
 
         //Debug.DrawRay(forwardRef.position, dir * range, Color.red, 0.2f);
         if (Physics.Raycast(ray, out RaycastHit hit, range, layer))
         {
-            if(hit.collider.TryGetComponent(out PlayingEntity e))
+            if(hit.collider.TryGetComponent(out ColorEntity e))
             {
                 return e;
             }
@@ -111,12 +118,38 @@ public class Surveillor : MonoBehaviour
 
         for(int i = 0; i < detectionRayCount; i++)
         {
-            PlayingEntity e = CastRay(i / (float)detectionRayCount);
-            if (e != null) { entities.Add(e); }
+            ColorEntity e = CastRay(i / (float)detectionRayCount);
+            if (e != null)
+            {
+                if (e.TryGetComponent(out PlayingEntity pe))
+                {
+                    entities.Add(pe);
+                }
+                else if (e.tag == "Wall")
+                {
+                    detectedWall = e;
+                }
+            }
         }
 
         return entities;
     }
+
+    void ProcessDetectedEntities()
+    {
+        foreach(PlayingEntity pe in detectedEntities)
+        {
+            if(detectedWall == null || pe.Color != detectedWall.Color)
+            {
+                pe.AddDetected(gameObject);
+            }
+            else 
+            { 
+                pe.RemoveDetected(gameObject); 
+            }
+        }
+    }
+
     #endregion
 
     #region Display

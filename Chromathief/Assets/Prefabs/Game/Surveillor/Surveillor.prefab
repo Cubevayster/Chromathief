@@ -259,7 +259,7 @@ MonoBehaviour:
   layer:
     serializedVersion: 2
     m_Bits: 192
-  detectionUpdateRate: 5
+  detectionUpdateRate: 10
   detectionRayCount: 100
   detectionRayFrequence: 5
   lines:
@@ -421,6 +421,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_UseWorldSpace
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9030308264056069334, guid: 7d09814c7b4d55447b8f4a4247605e48,
+        type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 0.02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
