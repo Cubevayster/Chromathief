@@ -3,34 +3,44 @@ using UnityEngine;
 public class AIController : MonoBehaviour
 {
     [SerializeField] float maxSightDistance = 10f;
+    [SerializeField] float maxHearingDistance = 20f;
     [SerializeField] float walkSpeed = 2f;
     [SerializeField] float runSpeed = 5f;
     [SerializeField] float minIdleTime = 1f;
     [SerializeField] float maxIdleTime = 5f;
-    [SerializeField] float minWalkTime = 2f; // Minimum time to walk between idle states.
-    [SerializeField] float maxWalkTime = 10f; // Maximum time to walk between idle states.
+    [SerializeField] float minWalkTime = 2f; 
+    [SerializeField] float maxWalkTime = 10f; 
 
-    private Transform target;
+    private Vector3 target = default;
     private Animator animator;
     private UnityEngine.AI.NavMeshAgent navMeshAgent;
     private float idleTime;
     private float walkTime;
 
-    private void Awake()
+    private void Start()
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        // Initialize walkTime and idleTime at the start.
         walkTime = Random.Range(minWalkTime, maxWalkTime);
         idleTime = Random.Range(minIdleTime, maxIdleTime);
+        EntityManager.EntityManagerInstance.RegisterGuard(this);
+    }
+
+    public void MoveTowardsIfHeard(Vector3 noisePosition)
+    {
+       if(Vector3.Distance(this.gameObject.transform.position, noisePosition) < maxHearingDistance)
+        {
+            
+            target = noisePosition;
+        }
     }
 
     private void Update()
     {
-        if (target != null)
+        if (target != default)
         {
             navMeshAgent.speed = runSpeed;
-            navMeshAgent.destination = target.position;
+            navMeshAgent.destination = target;
             animator.SetBool("IsRunning", true);
             animator.SetBool("IsWalking", false);
             walkTime = maxWalkTime;
@@ -66,15 +76,15 @@ public class AIController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            target = other.transform;
+            target = other.transform.position;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform == target)
+        if (other.transform.position == target)
         {
-            target = null;
+            target = default;
         }
     }
 
