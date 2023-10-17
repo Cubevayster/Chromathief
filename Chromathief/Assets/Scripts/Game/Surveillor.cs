@@ -19,16 +19,18 @@ public class Surveillor : MonoBehaviour
     [SerializeField] float detectionRayFrequence;
 
     [Space(5)]
-    [SerializeField] LineRenderer[] lines; List<Ray> lineRays;
+    [SerializeField] LineRenderer[] lines; //List<Ray> lineRays;
     [SerializeField] float laserRotationSpeed;
 
     [SerializeField] LineRenderer focusLine;
 
+    /*
     [SerializeField] int lineRayCount;
     [SerializeField] float lineRayUpdateRate;
     [SerializeField] float lineRayFrequence;
     [SerializeField] float lineRaySpeed;
     [SerializeField] float lineRayMaxDistance;
+    */
 
     List<PlayingEntity> detectedEntities;
     ColorEntity detectedWall;
@@ -37,7 +39,7 @@ public class Surveillor : MonoBehaviour
     private void Start()
     {
         detectedEntities = new List<PlayingEntity>();
-        lineRays = new List<Ray>();
+        //lineRays = new List<Ray>();
         StartCoroutine(DetectionCoroutine());
         //StartCoroutine(DrawLines());
     }
@@ -153,6 +155,7 @@ public class Surveillor : MonoBehaviour
     #endregion
 
     #region Display
+    /*
     void AppendLine(Ray ray)
     {
         lineRays.Add(ray);
@@ -196,7 +199,7 @@ public class Surveillor : MonoBehaviour
             }
             
         }
-    }
+    }*/
 
     Vector3 GetRayVect(float offset)
     {
