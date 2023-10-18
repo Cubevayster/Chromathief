@@ -22,13 +22,19 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] AnimationCurve reverseRunAccelerationCurve;
 
     [Space(5)]
+    [SerializeField] float slideDistance;
+    [SerializeField] float slideBrake;
+    [SerializeField] AnimationCurve slideBrakeCurve;
+
+    [Space(5)]
     [SerializeField] float speedRatio = 50;
     [SerializeField] float rotationSpeed;
     [SerializeField] Animator playerAnimator;
     bool isWalking; public bool IsWalking { get { return isWalking; } }
     bool isRunning; public bool IsRunning { get { return isRunning; } }
-    Vector2 runDirection;
+    bool isSliding; public bool IsSliding { get { return isSliding; } }
 
+    Vector2 runDirection; Vector2 slideStart; 
     Vector2 movementInput;
     Vector2 currentSpeed; public Vector3 CurrentSpeed { get { return new Vector3(currentSpeed.x, 0, currentSpeed.y);} }
     Vector2 WalkSpeedRatio { get { return new Vector2(Mathf.Abs(currentSpeed.x) / walkSpeed, Mathf.Abs(currentSpeed.y )/ walkSpeed); } }
@@ -61,7 +67,11 @@ public class PlayerControler : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(isRunning)
+        if(isSliding)
+        {
+            Slide();
+        }
+        else if(isRunning)
         {
             Run();
         }
@@ -79,8 +89,12 @@ public class PlayerControler : MonoBehaviour
             TimeStanding = 0f;
         }
 
-        RunInput();
-        WalkInput();
+        if (!isSliding)
+        {
+            RunInput();
+            WalkInput();
+        }
+
         ApplySpeed();
         SetAnimatorParameters();
     }
@@ -89,6 +103,18 @@ public class PlayerControler : MonoBehaviour
     {
         Quaternion rot = Quaternion.LookRotation(new Vector3(direction.x,0, direction.y), transform.up); //new Vector3(currentSpeed.x, 0, currentSpeed.y)
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, Time.deltaTime * rotationSpeed);
+    }
+
+    void Slide()
+    {
+        float currentSlideDistance = (slideStart - position2D).magnitude;
+        float slideRatio = currentSlideDistance / slideDistance;
+
+        float force = 1 + (slideBrake * slideBrakeCurve.Evaluate(slideRatio));
+        currentSpeed /= force;
+
+        //if(currentSpeed.magnitude < 0.1f) { isSliding = false; }
+        if(slideRatio >= 1 || currentSpeed.magnitude < 0.1f || velocity.magnitude < 0.1f) { isSliding = false; }
     }
 
     void Run()
@@ -138,9 +164,14 @@ public class PlayerControler : MonoBehaviour
     {
         bool previousState = isRunning;
         isRunning = Input.GetKey(KeyCode.LeftShift) && movementInput.magnitude > 0.1f;
-        if(isRunning && isRunning != previousState)
+        if(isRunning && isRunning != previousState) //Start running
         {
             runDirection = currentSpeed.normalized;
+        }
+        else if(!isRunning && isRunning != previousState) //Stop running
+        {
+            isSliding = true;
+            slideStart = position2D;
         }
     }
 
@@ -158,4 +189,6 @@ public class PlayerControler : MonoBehaviour
     }
 
     public Rigidbody Rigidbody { get { return GetComponent<Rigidbody>(); } }
+    public Vector3 velocity { get { return Rigidbody.velocity; } }
+    public Vector2 position2D { get { return new Vector2(transform.position.x, transform.position.z); } }
 }
