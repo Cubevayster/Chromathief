@@ -114,7 +114,7 @@ public class PlayerControler : MonoBehaviour
         currentSpeed /= force;
 
         //if(currentSpeed.magnitude < 0.1f) { isSliding = false; }
-        if(slideRatio >= 1 || currentSpeed.magnitude < 0.1f || velocity.magnitude < 0.1f) { isSliding = false; }
+        if(slideRatio >= 1 || currentSpeed.magnitude < 0.5f || velocity.magnitude < 0.5f) { isSliding = false; }
     }
 
     void Run()
