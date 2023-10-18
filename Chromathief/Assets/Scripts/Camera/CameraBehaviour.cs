@@ -19,7 +19,7 @@ public class CameraBehaviour : MonoBehaviour
 
     private void Start()
     {
-        basePosition = this.transform.localPosition; 
+        basePosition = this.transform.localPosition *(  this.transform.parent.localScale.magnitude / 2 ); 
         transform.parent = null;
     }
 

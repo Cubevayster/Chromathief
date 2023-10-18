@@ -5696,7 +5696,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1579393928449151712}
@@ -5757,7 +5757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556e6402ef58e0a4da510dfbcab2ffe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 0.15
+  walkSpeed: 0.45
   walkAcceleration: 0.01
   walkBrakeAcceleration: 0.5
   walkBrakeAccelerationCurve:
@@ -5833,7 +5833,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  runSpeed: 0.25
+  runSpeed: 0.75
   runAngle: 15
   runAcceleration: 0.02
   runAccelerationCurve:
