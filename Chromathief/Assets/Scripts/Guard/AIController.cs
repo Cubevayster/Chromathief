@@ -9,13 +9,17 @@ public class AIController : MonoBehaviour
     [SerializeField] float minIdleTime = 1f;
     [SerializeField] float maxIdleTime = 5f;
     [SerializeField] float minWalkTime = 2f; 
-    [SerializeField] float maxWalkTime = 10f; 
+    [SerializeField] float maxWalkTime = 10f;
+
+    AIVision visionComponent = null;
 
     private Vector3 target = default;
     private Animator animator;
     private UnityEngine.AI.NavMeshAgent navMeshAgent;
     private float idleTime;
     private float walkTime;
+
+    private void Awake() => GetComponents();
 
     private void Start()
     {
@@ -25,6 +29,15 @@ public class AIController : MonoBehaviour
         idleTime = Random.Range(minIdleTime, maxIdleTime);
         EntityManager.EntityManagerInstance.RegisterGuard(this);
     }
+
+    void GetComponents()
+    {
+        visionComponent = GetComponent<AIVision>();
+        if (!visionComponent) return;
+        visionComponent.OnPlayerStillInSight += (Player _target) => { target = _target.transform.position; };
+        visionComponent.OnPlayerLost += (Player _target) => { target = default; } ;
+    }
+
 
     public void MoveTowardsIfHeard(Vector3 noisePosition)
     {
@@ -74,18 +87,12 @@ public class AIController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            target = other.transform.position;
-        }
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.position == target)
-        {
-            target = default;
-        }
+        
     }
 
     private Vector3 RandomNavmeshLocation(float distance)
