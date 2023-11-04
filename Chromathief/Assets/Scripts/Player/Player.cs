@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : PlayingEntity
 {
+    [SerializeField] Camera playerCamera = null;
+    public Camera GetCamera() { return playerCamera; }
     public override void Clear() { base.Clear(); HUD.Instance?.SetPrimaryColors(red, blue, yellow);  }
     public override void All() { base.All(); HUD.Instance?.SetPrimaryColors(red, blue, yellow); }
     public override void ChangeRed(bool r) { base.ChangeRed(r); HUD.Instance?.SetPrimaryColors(red, blue, yellow); }

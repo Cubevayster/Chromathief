@@ -5723,6 +5723,7 @@ MonoBehaviour:
   red: 0
   blue: 0
   yellow: 0
+  playerCamera: {fileID: 768119307386420728}
 --- !u!114 &433019983405038784
 MonoBehaviour:
   m_ObjectHideFlags: 0
