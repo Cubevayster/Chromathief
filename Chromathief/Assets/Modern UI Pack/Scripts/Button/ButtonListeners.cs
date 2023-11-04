@@ -16,7 +16,7 @@ public class ButtonListeners : MonoBehaviour
 
     public void openEasyLevel()
     {
-        SceneManager.LoadScene("Adelo");
+        SceneManager.LoadScene("Adrien");
         Debug.Log("You have clicked the button 'easy level'!");
     }
 
@@ -28,7 +28,7 @@ public class ButtonListeners : MonoBehaviour
 
     public void quitGame()
     {
-        // TODO
+        Application.Quit();
         Debug.Log("You have clicked the button 'quit'!");
     }
 }

@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level1.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Adelo.unity
     guid: b86ea3b74673b4fb38e1e1bc2272963b
+  - enabled: 1
+    path: Assets/Scenes/Adrien.unity
+    guid: ba3df84dd67ade34c865a4dbb37d5770
   m_configObjects: {}
