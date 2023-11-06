@@ -1,7 +1,7 @@
 using System;
 
 [Serializable]
-public enum AlertTypes
+public enum ALERT_TYPES
 {
     None,
     Warning

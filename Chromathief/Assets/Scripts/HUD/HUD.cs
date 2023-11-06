@@ -9,11 +9,11 @@ using GameColor = ColorManager.GameColor;
 [Serializable]
 public struct AlertColors
 {
-    [SerializeField] AlertTypes mTypes;
+    [SerializeField] ALERT_TYPES mTypes;
     [SerializeField] Color mTriangleColor;
     [SerializeField] Color mExclamationColor;
 
-    public AlertTypes AlertType() => mTypes;
+    public ALERT_TYPES AlertType() => mTypes;
     public Color TriangleColor() => mTriangleColor;
     public Color ExclamationColor() => mExclamationColor;
 }
@@ -87,7 +87,7 @@ public class HUD : Singleton<HUD>
         currentColor.color = ColorManager.GetColor(_color);
     }
 
-    public void SetAlert(AlertTypes _alert)
+    public void SetAlert(ALERT_TYPES _alert)
     {
         if (!mTriangleWarning || !mExclamationWarning) return;
         foreach (AlertColors _color in mColorsAlerts)

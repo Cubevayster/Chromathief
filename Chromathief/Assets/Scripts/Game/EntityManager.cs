@@ -4,49 +4,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class EntityManager : MonoBehaviour
+public class EntityManager : Singleton<EntityManager>
 {
-    private static EntityManager _entityManagerInstance;
-    List<AIController> guards = new List<AIController>();
+    [SerializeField] List<AIBrain> allAI = new List<AIBrain>();
+    public List<AIBrain> GetAIs() => allAI;
 
-    public static EntityManager EntityManagerInstance {
-        get {
-            return _entityManagerInstance;
-        }
-    }
-    
-    public void RegisterGuard(AIController aiController)
+    bool AIAlreadyRegistered(AIBrain _ai) => allAI.Contains(_ai);
+
+    public void RegisterGuard(AIBrain _ai)
     {
-        this.guards.Add(aiController);
+        if (AIAlreadyRegistered(_ai)) return;
+        allAI.Add(_ai);
     }
 
-    public List<AIController> GetGuards()
+    public void UnregisterGuard(AIBrain _ai)
     {
-        return this.guards;
+        if (!AIAlreadyRegistered(_ai)) return;
+        allAI.Remove(_ai);
     }
-
-    public void UnRegisterGuard(AIController aiController)
-    {
-        this.guards.Remove(aiController);
-    }
-
-    public void NotifyGuardOfNoise(Vector3 noisePosition)
-    {
-        foreach (AIController guard in this.guards)
-        {
-            guard.MoveTowardsIfHeard(noisePosition);
-        }
-       
-    }
-
-    public void Awake()
-    {
-        if (_entityManagerInstance == null)
-        {
-            _entityManagerInstance = new EntityManager();
-        }
-    }
-
-
-
 }

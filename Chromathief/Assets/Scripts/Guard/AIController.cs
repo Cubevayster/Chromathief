@@ -27,7 +27,7 @@ public class AIController : MonoBehaviour
         navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         walkTime = Random.Range(minWalkTime, maxWalkTime);
         idleTime = Random.Range(minIdleTime, maxIdleTime);
-        EntityManager.EntityManagerInstance.RegisterGuard(this);
+        //EntityManager.EntityManagerInstance.RegisterGuard(this);
     }
 
     void GetComponents()

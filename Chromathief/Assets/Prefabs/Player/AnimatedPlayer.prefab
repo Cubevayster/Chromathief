@@ -5724,6 +5724,7 @@ MonoBehaviour:
   blue: 0
   yellow: 0
   playerCamera: {fileID: 768119307386420728}
+  playerControler: {fileID: 433019983405038784}
 --- !u!114 &433019983405038784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5736,6 +5737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556e6402ef58e0a4da510dfbcab2ffe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canMove: 1
   walkSpeed: 0.45
   walkAcceleration: 0.01
   walkBrakeAcceleration: 0.5

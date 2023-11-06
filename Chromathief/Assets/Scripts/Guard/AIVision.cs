@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class AIVision : MonoBehaviour
 {
@@ -8,10 +9,15 @@ public class AIVision : MonoBehaviour
     public Action<Player> OnPlayerLost = null;
 
     [SerializeField] Player target = null;
-    [SerializeField] float thresholdVision = 90;
+    Mesh coneMesh = null;
+    [SerializeField] MeshFilter coneMeshFilter = null;
+    [SerializeField] MeshRenderer coneMeshRenderer = null;
+    [SerializeField, Range(0,180)] int thresholdVision = 45;
+    [SerializeField] float distanceVision = 20;
 
     Collider playerCollider = null;
     bool playerIsAlreadySpotted = false;
+
 
     private void Awake()
     {
@@ -38,7 +44,7 @@ public class AIVision : MonoBehaviour
 
     void UpdateVision()
     {
-        bool _playerSpotted = CheckTargetVisible();
+        bool _playerSpotted = UpdateConeSight();
         if (!playerIsAlreadySpotted && _playerSpotted) OnPlayerSpotted.Invoke(target);
         else if (playerIsAlreadySpotted && _playerSpotted) OnPlayerStillInSight.Invoke(target);
         else if (playerIsAlreadySpotted && !_playerSpotted) OnPlayerLost.Invoke(target);
@@ -68,4 +74,37 @@ public class AIVision : MonoBehaviour
         if (!Physics.Raycast(transform.position, (target.transform.position - transform.position).normalized, out _hitData)) return false;
         return _hitData.collider == playerCollider;
     }
+
+    public bool UpdateConeSight()
+    {
+        bool _playerInSight = false;
+        int _vertexCount = 2*thresholdVision + 2;
+        Vector3[] _vertices = new Vector3[_vertexCount];
+        int[] _triangles = new int[(_vertexCount - 1) * 3];
+        _vertices[0] = transform.localPosition;
+        for (int i = 0; i < _vertexCount - 1; i++)
+        {
+            Vector3 _directionRaycast = Quaternion.AngleAxis(i- thresholdVision, transform.up) * transform.forward;
+            Vector3 _endPoint = transform.position + _directionRaycast * distanceVision;
+            RaycastHit _hitData;
+            bool _touch = Physics.Raycast(transform.position, _directionRaycast.normalized, out _hitData, distanceVision);
+            if (_touch && _hitData.collider == playerCollider) _playerInSight = true;
+            _vertices[i + 1] = transform.InverseTransformPoint(_touch ? _hitData.point : _endPoint);
+            if (i < _vertexCount - 2)
+            {
+                _triangles[i * 3] = 0;
+                _triangles[i * 3 + 1] = i + 1;
+                _triangles[i * 3 + 2] = i + 2;
+            }
+        }
+        coneMesh = new Mesh();
+        coneMesh.Clear();
+        coneMesh.vertices = _vertices;
+        coneMesh.triangles = _triangles;
+        coneMesh.RecalculateNormals();
+        coneMeshFilter.mesh = coneMesh;
+
+        return _playerInSight;
+    }
+   
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerControler : MonoBehaviour
 {
+    [SerializeField] bool canMove = true;
+    public bool CanMove { get => canMove; set { canMove = value; } }
+
     [SerializeField] float walkSpeed;
     [SerializeField] float walkAcceleration;
     [SerializeField] float walkBrakeAcceleration;
@@ -119,6 +122,7 @@ public class PlayerControler : MonoBehaviour
 
     void Run()
     {
+        if(!canMove) return;
         float angle = Vector2.SignedAngle(runDirection, movementInput);
         if(angle > runAngle) { angle = runAngle; }
         if(angle < -runAngle) { angle = -runAngle; }
@@ -138,6 +142,7 @@ public class PlayerControler : MonoBehaviour
 
     void Walk()
     {
+        if (!canMove) return;
         Vector2 wa = WalkAcceleration(movementInput);
 
         currentSpeed += new Vector2(movementInput.x * wa.x, movementInput.y * wa.y);
@@ -162,6 +167,7 @@ public class PlayerControler : MonoBehaviour
 
     void RunInput()
     {
+        if (!canMove) return;
         bool previousState = isRunning;
         isRunning = Input.GetKey(KeyCode.LeftShift) && movementInput.magnitude > 0.1f;
         if(isRunning && isRunning != previousState) //Start running
@@ -177,6 +183,7 @@ public class PlayerControler : MonoBehaviour
 
     void WalkInput()
     {
+        if (!canMove) return;
         movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         movementInput.Normalize();
     }
@@ -186,6 +193,12 @@ public class PlayerControler : MonoBehaviour
         playerAnimator.SetBool("isWalking", isWalking);
         playerAnimator.SetBool("isRunning", isRunning);
         playerAnimator.SetFloat("TimeStanding", TimeStanding);
+    }
+
+    public void StopPlayerControler()
+    {
+        //Debug.Log("Stop player");
+        canMove = false;
     }
 
     public Rigidbody Rigidbody { get { return GetComponent<Rigidbody>(); } }

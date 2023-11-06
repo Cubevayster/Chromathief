@@ -7,12 +7,16 @@ public class AIPathFollower : MonoBehaviour
     public Action<Vector3> OnPathDestinationAcquired = null;
 
     [SerializeField] bool isCyclicFollowing = false;
+    [SerializeField] float timeToWaitAtEachPoint = 2;
     [SerializeField] int pathIndex = -1;
     [SerializeField] int pointsIndex = 0;
     [SerializeField] List<Vector3> points = new List<Vector3>();
 
     [SerializeField] Vector3 currentTargetPosition = Vector3.zero;
     [SerializeField] bool ascendingOrder = true;
+
+    public float GetTimeToWaitAtEachPoint() => timeToWaitAtEachPoint;
+    public Vector3 GetCurrentDestinationOnPath() => currentTargetPosition;
 
     void Start() => GetPathToFollow();
 
