@@ -5,6 +5,7 @@ using TMPro;
 using System.Collections.Generic;
 
 using GameColor = ColorManager.GameColor;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public struct AlertColors
@@ -34,6 +35,20 @@ public class HUD : Singleton<HUD>
     [SerializeField] RawImage mTriangleWarning = null;
     [SerializeField] RawImage mExclamationWarning = null;
     [SerializeField] List<AlertColors> mColorsAlerts = new List<AlertColors>();
+
+    private void Start()
+    {
+        SetLvlName(SceneManager.GetActiveScene().name);
+        UpdateUIPrimaryColors(red, redIsToggled);
+        UpdateUIPrimaryColors(blue, blueIsToggled);
+        UpdateUIPrimaryColors(yellow, yellowIsToggled);
+    }
+
+    private void Update()
+    {
+        string _timer = GameManager.UpdateTimer(Time.deltaTime);
+        SetScoreTime(_timer);
+    }
 
     public void SetLvlName(string _lvlName)
     {
@@ -97,12 +112,5 @@ public class HUD : Singleton<HUD>
             mExclamationWarning.color = _color.ExclamationColor();
             return;
         }
-    }
-
-    private void Start()
-    {
-        UpdateUIPrimaryColors(red, redIsToggled);
-        UpdateUIPrimaryColors(blue, blueIsToggled);
-        UpdateUIPrimaryColors(yellow, yellowIsToggled);
     }
 }

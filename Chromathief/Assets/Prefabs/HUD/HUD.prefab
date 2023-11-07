@@ -1149,7 +1149,13 @@ MonoBehaviour:
   yellowIsToggled: 0
   mTriangleWarning: {fileID: 8575295149944569075}
   mExclamationWarning: {fileID: 8575295150336871891}
-  mColorsAlerts: []
+  mColorsAlerts:
+  - mTypes: 0
+    mTriangleColor: {r: 1, g: 1, b: 1, a: 1}
+    mExclamationColor: {r: 0, g: 0, b: 0, a: 1}
+  - mTypes: 1
+    mTriangleColor: {r: 1, g: 0.79510856, b: 0, a: 1}
+    mExclamationColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &8575295149991528527
 GameObject:
   m_ObjectHideFlags: 0

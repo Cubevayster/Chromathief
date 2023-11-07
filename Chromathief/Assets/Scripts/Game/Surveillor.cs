@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Surveillor : MonoBehaviour
 {
+    [SerializeField] SpotcamComponent spotcamComponent = null;
+
+    [Space(5)]
+
     [SerializeField] Vector2 angles;
     [SerializeField] float range;
 
@@ -56,11 +60,13 @@ public class Surveillor : MonoBehaviour
             {
                 if (pe.DetectedBy(gameObject))
                 {
+                    if (spotcamComponent) spotcamComponent.FollowPlayer(pe as Player);
                     DrawFocusLine(pe.transform); break;
                 }
             }
         }
         else { focusLine.gameObject.SetActive(false); }
+
     }
 
     #region Detection
@@ -144,6 +150,7 @@ public class Surveillor : MonoBehaviour
             if(detectedWall == null || pe.Color != detectedWall.Color)
             {
                 pe.AddDetected(gameObject);
+                StartCoroutine(GameManager.GameOver(spotcamComponent));
             }
             else 
             { 

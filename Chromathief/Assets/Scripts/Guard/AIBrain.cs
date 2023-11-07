@@ -11,13 +11,18 @@ public class AIBrain : MonoBehaviour
     [SerializeField] AIMovement movement = null;
     [SerializeField] AIPathFollower pathfollow = null;
     [SerializeField] SoundReceiver soundReceiver = null;
+    [SerializeField] SpotcamComponent spotcamComponent = null;
 
     [SerializeField] bool isFollowingPath = true;
-    [SerializeField] Camera AIcamera = null;
 
     Coroutine currentWaitCoroutine = null;
 
+    public ALERT_TYPES GetAlertType() => alertType;
+
     private void Awake() => RegisterCallbacks();
+
+    private void Start() => EntityManager.Instance?.RegisterGuard(this);
+    private void OnDestroy() => EntityManager.Instance?.UnregisterGuard(this);
 
     void RegisterCallbacks()
     {
@@ -36,7 +41,11 @@ public class AIBrain : MonoBehaviour
         if(vision)
         {
             vision.OnPlayerSpotted += IALogicOnSpotPlayer;
-            vision.OnPlayerStillInSight += FollowPlayer;
+        }
+
+        if(vision && spotcamComponent)
+        {
+            vision.OnPlayerStillInSight += spotcamComponent.FollowPlayer;
         }
 
         if(soundReceiver)
@@ -66,18 +75,11 @@ public class AIBrain : MonoBehaviour
     {
         if(currentWaitCoroutine != null) StopCoroutine(currentWaitCoroutine);
         if (movement) movement.StopMovement();
-        if (AIcamera && !GameManager.gameIsOver) AIcamera.enabled = true;
-        StartCoroutine(GameManager.GameOver(AIcamera));
+
         PlayerControler _playerControler = _player.GetPlayerControler();
         if(_playerControler) _playerControler.StopPlayerControler();
-    }
-
-    void FollowPlayer(Player _player)
-    {
-        Vector3 _AIToPlayer = _player.transform.position - transform.position;
-        _AIToPlayer = Vector3.ProjectOnPlane(_AIToPlayer, transform.up).normalized;
-        Quaternion _direction = Quaternion.LookRotation(_AIToPlayer);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, _direction, 360);
+        
+        StartCoroutine(GameManager.GameOver(spotcamComponent));
     }
 
     void IALogicOnSoundHeard(Vector3 _positionSound, float _rangeSound)

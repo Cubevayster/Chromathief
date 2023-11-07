@@ -497,6 +497,7 @@ GameObject:
   - component: {fileID: 4913340860399106246}
   - component: {fileID: 4510169158499333469}
   - component: {fileID: 2481629529656755686}
+  - component: {fileID: 6442398340629795118}
   m_Layer: 2
   m_Name: IA_Guard
   m_TagString: Untagged
@@ -633,8 +634,21 @@ MonoBehaviour:
   movement: {fileID: 1983348021786321175}
   pathfollow: {fileID: 4913340860399106246}
   soundReceiver: {fileID: 4510169158499333469}
+  spotcamComponent: {fileID: 6442398340629795118}
   isFollowingPath: 1
-  AIcamera: {fileID: 5691715675853367417}
+--- !u!114 &6442398340629795118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2156061602402988353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2edbf2ff41fceff4f82650d4f1d5c44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spotCamera: {fileID: 5691715675853367417}
 --- !u!1 &2336734482314688118
 GameObject:
   m_ObjectHideFlags: 0
