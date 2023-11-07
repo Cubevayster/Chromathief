@@ -22,7 +22,7 @@ public class ButtonListeners : MonoBehaviour
 
     public void openHardLevel()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("Intro");
         Debug.Log("You have clicked the button 'hard level'!");
     }
 
