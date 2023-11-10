@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,7 +20,7 @@ public static class GameManager
         int _nbMinutes = (int)timer / 60;
         int _nbSeconds = (int)timer % 60;
         float _decimal = (float)(timer - Math.Truncate(timer));
-        while (_decimal < 100)
+        while (_decimal != 0 && _decimal < 100)
             _decimal *= 10;
         timerDisplay += (_nbMinutes < 10 ? "0" + _nbMinutes : _nbMinutes)
                         + ":" + (_nbSeconds < 10 ? "0" + _nbSeconds : _nbSeconds)
