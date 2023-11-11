@@ -37,10 +37,12 @@ public class HUD : Singleton<HUD>
     [SerializeField] List<AlertColors> mColorsAlerts = new List<AlertColors>();
 
     [SerializeField] RectTransform helpRect;
+    [SerializeField] RectTransform spottedText;
 
     private void Start()
     {
-        helpRect.gameObject.SetActive(false);
+        spottedText.gameObject.SetActive(false);
+        helpRect?.gameObject.SetActive(false);
         SetLvlName(SceneManager.GetActiveScene().name);
         UpdateUIPrimaryColors(red, redIsToggled);
         UpdateUIPrimaryColors(blue, blueIsToggled);
@@ -52,6 +54,11 @@ public class HUD : Singleton<HUD>
         string _timer = GameManager.UpdateTimer(Time.deltaTime);
         SetScoreTime(_timer);
         if (Input.GetKeyDown(KeyCode.Escape)) { QuitHelp(); }
+    }
+
+    public void SetSpotted(bool b)
+    {
+        spottedText.gameObject.SetActive(b);
     }
 
     public void QuitHelp()

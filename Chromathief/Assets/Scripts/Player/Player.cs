@@ -19,4 +19,10 @@ public class Player : PlayingEntity
         base.UpdateColor(playEffect,_red,_blue,_yellow); 
         HUD.Instance?.SetCurrentColor(Color);
     }
+
+    protected override void Update()
+    {
+        base.Update();
+        HUD.Instance?.SetSpotted(Detected);
+    }
 }
