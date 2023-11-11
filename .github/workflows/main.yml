@@ -19,16 +19,19 @@ jobs:
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ steps.get_version.outputs.VERSION }}
         release_name: Release ${{ steps.get_version.outputs.VERSION }}
+        body: "Release of version ${{ steps.get_version.outputs.VERSION }}"
         draft: false
         prerelease: false
-        body: "Release of version ${{ steps.get_version.outputs.VERSION }}"
-        generate_release_notes: false
 
     - name: Upload RAR file to Release
       uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: ../../BuildWindows.rar
