@@ -8,12 +8,13 @@ public class IntroWalk : MonoBehaviour
 
     [SerializeField] private float speed = 1.0f;
     private bool finished = false;
-
+    public GameObject light;
     [SerializeField] private Transform target;
     [SerializeField] private AudioClip door;
 
     void Awake()
     {
+        light = GameObject.FindGameObjectWithTag("light");
         target = GameObject.Find("PlayerFinishPoint").transform;
     }
 
@@ -45,6 +46,7 @@ public class IntroWalk : MonoBehaviour
 
     void LoadLevel1()
     {
+        light.SetActive(false);
         SceneManager.LoadScene("Level1");
     }
 
