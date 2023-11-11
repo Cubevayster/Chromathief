@@ -40,15 +40,7 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 0cbc9734b7989144ab59c5b6bfccbd6f, type: 3}
-        m_Scale: {x: 0.3, y: 0.3}
-        m_Offset: {x: 0, y: 0}
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 0cbc9734b7989144ab59c5b6bfccbd6f, type: 3}
-        m_Scale: {x: 0.3, y: 0.3}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
     m_Floats: []
     m_Colors: []

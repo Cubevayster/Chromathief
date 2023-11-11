@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1428461894480932836, guid: 2d5da4f4f3f799f4c9d9eb97abf23b21,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1465a4f1900cf474da95fabb6df72a0e, type: 2}
     - target: {fileID: 1614069477441446634, guid: 2d5da4f4f3f799f4c9d9eb97abf23b21,
         type: 3}
       propertyPath: m_LocalPosition.x
