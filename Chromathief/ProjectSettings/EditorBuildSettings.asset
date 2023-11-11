@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Adrien.unity
     guid: ba3df84dd67ade34c865a4dbb37d5770
+  - enabled: 1
+    path: Assets/Scenes/VictoryScene.unity
+    guid: c8c25fcdbdde9794a8137779491bb12e
   m_configObjects: {}
