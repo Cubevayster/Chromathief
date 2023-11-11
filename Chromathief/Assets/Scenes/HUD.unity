@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -527,81 +527,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[1].mTypes
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[0].mTriangleColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[0].mTriangleColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[0].mTriangleColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[0].mTriangleColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[1].mTriangleColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[1].mTriangleColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[1].mTriangleColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[1].mTriangleColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[0].mExclamationColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[1].mExclamationColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[1].mExclamationColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[1].mExclamationColor.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7286303808093453374, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: mColorsAlerts.Array.data[1].mExclamationColor.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8575295149965414834, guid: 597671ba0d7c2ec4d96e05fa415418f6,
         type: 3}
       propertyPath: m_Pivot.x
@@ -611,11 +536,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8575295149965414834, guid: 597671ba0d7c2ec4d96e05fa415418f6,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8575295149965414834, guid: 597671ba0d7c2ec4d96e05fa415418f6,
         type: 3}

@@ -36,8 +36,11 @@ public class HUD : Singleton<HUD>
     [SerializeField] RawImage mExclamationWarning = null;
     [SerializeField] List<AlertColors> mColorsAlerts = new List<AlertColors>();
 
+    [SerializeField] RectTransform helpRect;
+
     private void Start()
     {
+        helpRect.gameObject.SetActive(false);
         SetLvlName(SceneManager.GetActiveScene().name);
         UpdateUIPrimaryColors(red, redIsToggled);
         UpdateUIPrimaryColors(blue, blueIsToggled);
@@ -48,6 +51,16 @@ public class HUD : Singleton<HUD>
     {
         string _timer = GameManager.UpdateTimer(Time.deltaTime);
         SetScoreTime(_timer);
+        if (Input.GetKeyDown(KeyCode.Escape)) { QuitHelp(); }
+    }
+
+    public void QuitHelp()
+    {
+        helpRect.gameObject.SetActive(false);
+    }
+    public void ClickHelpButton()
+    {
+        helpRect.gameObject.SetActive(true);
     }
 
     public void SetLvlName(string _lvlName)
