@@ -2176,6 +2176,7 @@ MonoBehaviour:
     mTriangleColor: {r: 1, g: 0, b: 0, a: 1}
     mExclamationColor: {r: 1, g: 1, b: 1, a: 1}
   helpRect: {fileID: 7438885264087645340}
+  spottedText: {fileID: 6475184606148250559}
 --- !u!114 &8145474150660412953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2188,6 +2189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c74d34cac9dac004a898a68fcedcba3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoretext: {fileID: 6193116635248521325}
+  currentScore: 0
 --- !u!1 &8575295149991528527
 GameObject:
   m_ObjectHideFlags: 0
