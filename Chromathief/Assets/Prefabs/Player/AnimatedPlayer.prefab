@@ -5662,6 +5662,9 @@ MonoBehaviour:
   runMinDuration: 1
   rotationSpeed: 750
   playerAnimator: {fileID: 6635325227025748993}
+  walkSoundClip: {fileID: 8300000, guid: 2d11bdd9e14de8846aedd0456361796b, type: 3}
+  runSoundClip: {fileID: 8300000, guid: 7e368c61ad577224693930026a37745c, type: 3}
+  currentClip: {fileID: 8300000, guid: 2d11bdd9e14de8846aedd0456361796b, type: 3}
 --- !u!54 &2458678600356320154
 Rigidbody:
   m_ObjectHideFlags: 0

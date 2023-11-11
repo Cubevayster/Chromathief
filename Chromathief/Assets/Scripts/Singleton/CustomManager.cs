@@ -1,15 +1,22 @@
 using UnityEngine;
 
-public class CustomManager : Singleton<CustomManager>
+public class CustomManager
 {
-    public string TimeText;
+    private static CustomManager instance;
+
+    public string TimeText = "00:00:01";
     public string ScoreText = "1000$";
 
-    protected override void Awake()
+    private CustomManager() { }
+    public static CustomManager Instance
     {
-        base.Awake(); 
-
+        get
+        {
+            if (instance == null)
+            {
+                instance = new CustomManager();
+            }
+            return instance;
+        }
     }
-
-
 }

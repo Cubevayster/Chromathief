@@ -27,6 +27,9 @@ public class PlayerControler : MonoBehaviour
     Vector2 runDirection; float runCurrentDuration;
     Vector2 movementInput;
     AudioSource walksound;
+    [SerializeField] AudioClip walkSoundClip;
+    [SerializeField] AudioClip runSoundClip;
+
 
     float TimeStanding = 0f;
 
@@ -37,10 +40,23 @@ public class PlayerControler : MonoBehaviour
 
     private void generateSound()
     {
-        if (isRunning || IsWalking)
+        if ( IsWalking && !isRunning)
         {
+                walksound.clip = walkSoundClip;
+            
             if (!walksound.isPlaying)
             {
+                walksound.Play();
+            }
+        }
+        else if (isRunning )
+        {
+                walksound.clip = runSoundClip;
+            
+
+            if (!walksound.isPlaying)
+            {
+              
                 walksound.Play();
             }
         }
