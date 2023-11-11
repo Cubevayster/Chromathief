@@ -1915,6 +1915,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2347636512094733783, guid: 9e489db54cf105e48a1227fed97a45c9,
+        type: 3}
+      propertyPath: blue
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3195611051808234214, guid: 9e489db54cf105e48a1227fed97a45c9,
         type: 3}
       propertyPath: navMesh

@@ -78,7 +78,8 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6330295387293576669, guid: 2d5da4f4f3f799f4c9d9eb97abf23b21, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -86,6 +87,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3195611051808234214}
+    - targetCorrespondingSourceObject: {fileID: 115728000070223555, guid: 2d5da4f4f3f799f4c9d9eb97abf23b21,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6884823112822835892}
   m_SourcePrefab: {fileID: 100100000, guid: 2d5da4f4f3f799f4c9d9eb97abf23b21, type: 3}
 --- !u!1 &6397355265710263320 stripped
 GameObject:
@@ -108,5 +113,25 @@ MonoBehaviour:
   destroyParticle: {fileID: 9012774716605913973, guid: 1330ebe1a5e3bbd4fb5d79dd91f62b2e,
     type: 3}
   navMesh: {fileID: 0}
-  globalmusic: {fileID: 0}
-  speedMusic: {fileID: 0}
+--- !u!64 &6884823112822835892
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6397355265710263320}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
