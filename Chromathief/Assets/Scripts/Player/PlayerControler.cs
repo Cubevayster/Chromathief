@@ -7,6 +7,9 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] bool canMove = true;
     public bool CanMove { get => canMove; set { canMove = value; } }
 
+    [SerializeField] bool foundExitKey = false;
+    public bool FoundExitKey { get => foundExitKey; set { foundExitKey = value; } }
+
     [SerializeField] float walkSpeed;
 
     [Space(5)]
@@ -23,14 +26,38 @@ public class PlayerControler : MonoBehaviour
 
     Vector2 runDirection; float runCurrentDuration;
     Vector2 movementInput;
+    AudioSource walksound;
 
     float TimeStanding = 0f;
+
+    private void Start()
+    {
+        walksound = GetComponent<AudioSource>();
+    }
+
+    private void generateSound()
+    {
+        if (isRunning || IsWalking)
+        {
+            if (!walksound.isPlaying)
+            {
+                walksound.Play();
+            }
+        }
+        else
+        {
+            walksound.Stop();
+        }
+
+    }
 
     private void FixedUpdate()
     {
         WalkInput();
         RunInput();
-        
+
+        generateSound();
+       
         if(isRunning)
         {
             Run();
