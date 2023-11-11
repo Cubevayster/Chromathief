@@ -176,7 +176,7 @@ MonoBehaviour:
   coneMeshFilter: {fileID: 1950582382092195468}
   coneMeshRenderer: {fileID: 1339231763447749416}
   thresholdVision: 45
-  distanceVision: 50
+  distanceVision: 30
 --- !u!33 &1950582382092195468
 MeshFilter:
   m_ObjectHideFlags: 0
