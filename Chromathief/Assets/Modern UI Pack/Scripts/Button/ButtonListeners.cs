@@ -16,7 +16,7 @@ public class ButtonListeners : MonoBehaviour
 
     public void openEasyLevel()
     {
-        SceneManager.LoadScene("Adrien");
+        SceneManager.LoadScene("Tutoriel");
         Debug.Log("You have clicked the button 'easy level'!");
     }
 

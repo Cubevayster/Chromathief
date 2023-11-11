@@ -86,10 +86,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3195611051808234214}
-    - targetCorrespondingSourceObject: {fileID: 115728000070223555, guid: 2d5da4f4f3f799f4c9d9eb97abf23b21,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1079552622251617842}
   m_SourcePrefab: {fileID: 100100000, guid: 2d5da4f4f3f799f4c9d9eb97abf23b21, type: 3}
 --- !u!1 &6397355265710263320 stripped
 GameObject:
@@ -112,24 +108,5 @@ MonoBehaviour:
   destroyParticle: {fileID: 9012774716605913973, guid: 1330ebe1a5e3bbd4fb5d79dd91f62b2e,
     type: 3}
   navMesh: {fileID: 0}
---- !u!65 &1079552622251617842
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6397355265710263320}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  globalmusic: {fileID: 0}
+  speedMusic: {fileID: 0}
