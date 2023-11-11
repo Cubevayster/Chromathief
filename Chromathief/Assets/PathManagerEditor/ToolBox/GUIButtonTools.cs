@@ -1,10 +1,13 @@
 ﻿using System;
 using ID.ToolBox.Style;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace ID.ToolBox.Button
 {
+#if UNITY_EDITOR
     public class GUIButtonTools
     {
         public static void CreateButton(string _label, Color _colorText, Color _colorBackground, Action _callback, int _fontSize = 12, TextAnchor _anchor = TextAnchor.MiddleCenter, FontStyle _fontStyle = FontStyle.Bold)
@@ -60,4 +63,5 @@ namespace ID.ToolBox.Button
                 _callback?.Invoke();
         }
     }
+#endif
 }

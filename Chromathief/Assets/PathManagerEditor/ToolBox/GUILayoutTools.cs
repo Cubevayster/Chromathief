@@ -1,8 +1,11 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 namespace ID.ToolBox.Layout
 {
+#if UNITY_EDITOR
     public class GUILayoutTools
     {
         public static void Space(int _number = 1)
@@ -44,4 +47,5 @@ namespace ID.ToolBox.Layout
             _value = (T)EditorGUILayout.ObjectField(_label, _value, typeof(T), _allowSceneAsset);
         }
     }
+#endif
 }

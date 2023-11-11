@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace ID.ToolBox.CustomHandles
 {
+#if UNITY_EDITOR
     public static class HandlesTool
     {
         public static void DoPositionHandle(SerializedProperty _posProperty) => _posProperty.vector3Value = Handles.DoPositionHandle(_posProperty.vector3Value, Quaternion.identity);
@@ -70,4 +73,5 @@ namespace ID.ToolBox.CustomHandles
             Handles.color = Color.white;
         }
     }
+#endif
 }

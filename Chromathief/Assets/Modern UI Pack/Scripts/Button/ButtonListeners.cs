@@ -29,7 +29,9 @@ public class ButtonListeners : MonoBehaviour
     public void quitGame()
     {
         Application.Quit();
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
+#endif
         Debug.Log("You have clicked the button 'quit'!");
     }
 }
