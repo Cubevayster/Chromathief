@@ -9,6 +9,6 @@ jobs:
         uses: actions/upload-artifact@v3.1.3
         with:
           name: Chromathief
-          path: ../../BuildWindows.rar 
+          path: BuildWindows.rar 
           if-no-files-found: warn # Choisissez entre 'warn', 'error', 'ignore'
           retention-days: 10 # Remplacez par le nombre de jours souhaité
